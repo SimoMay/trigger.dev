@@ -1,5 +1,23 @@
 # @trigger.dev/sdk
 
+## 4.8.2
+
+### Patch Changes
+
+- Stream a sub-agent's reply through a parent tool call with `chat.forwardSubAgent`. Each chunk is written to the parent chat once and the tool resolves with the sub-agent's final message, so streaming a sub-agent costs bytes in proportion to its reply. Yielding `stream.messages()` snapshots resends the whole message on every chunk, which grows with the square of the reply. ([`bdc994c4d`](https://github.com/triggerdotdev/trigger.dev/commit/bdc994c4d3f80d047b4d0a830cca81330912f8c2))
+
+  ```ts
+  execute: async ({ topic }, { toolCallId, abortSignal }) => {
+    const stream = await researcher.sendMessage(topic, { abortSignal });
+    return await chat.forwardSubAgent(stream, { toolCallId });
+  },
+  ```
+
+  Render it while it runs with `useSubAgentMessages()` from `@trigger.dev/sdk/chat/react` (or `createSubAgentMessages()` outside React).
+
+- Updated dependencies:
+  - `@trigger.dev/core@4.8.2`
+
 ## 4.8.1
 
 ### Patch Changes

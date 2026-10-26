@@ -1,5 +1,12 @@
 # internal-platform
 
+## 4.8.2
+
+### Patch Changes
+
+- Run metadata operations now reject JSON-path keys that use escaped dots to reach `__proto__`, `constructor` or `prototype`. ([`dce5048a8`](https://github.com/triggerdotdev/trigger.dev/commit/dce5048a8e4ac35e72f85b4534239dec6a013211))
+- `runs.subscribeToRun` now ends after the run completes. The `for await` loop exits right after the update with the final status, and the subscription stops its connection, so a script that subscribes to a run exits on its own. Pass `stopOnCompletion: false` to keep the subscription open after completion. ([`485ab83aa`](https://github.com/triggerdotdev/trigger.dev/commit/485ab83aaf55057af9da8944570285f05880eaaf))
+
 ## 4.8.1
 
 ## 4.8.0
